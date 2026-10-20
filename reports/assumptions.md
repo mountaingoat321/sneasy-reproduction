@@ -8,6 +8,13 @@ CO2 ppm, and sea level metres. 1 YJ = 10^24 J. Atmospheric capacity is 2.12 Gt
 C/ppm, Earth area 5.10072e14 m2, ocean area 3.62e14 m2. The small difference
 between ocean area and 0.71 Earth area is retained from rounded source constants.
 
+Annual output rows are state snapshots at integer model years. NOAA annual
+means are treated as values at those same time coordinates; seasonal timing
+is not resolved. The emissions column records the mean over the preceding
+model-year interval. Temperature reference averages use the saved yearly
+states, not a separate continuous-time quadrature. No terminal salvage value
+is assigned to coastal defenses or abandoned assets in 2150.
+
 | Component | Fixed values | Source status |
 |---|---|---|
 | DOECLIM | land fraction 0.29; active ocean 0.95; depth 4000 m; land/sea heat capacities 0.52/7.8 W yr m-2 K-1; volumetric heat capacity 0.13 W yr m-3 K-1; marine-air/SST ratio 1.3; land/SST equilibrium ratio 1.43; exchange 1.59−0.31 lambda_land; doubled CO2 forcing 3.7 W/m2 | Kriegler's written equations; finite-volume solver implemented here |

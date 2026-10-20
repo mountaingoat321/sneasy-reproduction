@@ -64,7 +64,7 @@ These discrepancies and the conditioning periods are recorded in
 ## Rebuild
 
 Required: a C++17 compiler, GNU Make, Python 3 with NumPy/SciPy/Matplotlib,
-`pdflatex`, and `pdftotext`. The tested environment has GCC 8.5.0, Python 3,
+`pdflatex`, and `pdftotext`. The tested environment has GCC 8.5.0, Python 3.6.8,
 NumPy 1.19.5, SciPy 1.5.4, Matplotlib 3.3.4, and TeX Live 2018. Exact Python
 versions are recorded in [requirements.txt](requirements.txt). Existing
 dependencies suffice; no system installation or network download is required.

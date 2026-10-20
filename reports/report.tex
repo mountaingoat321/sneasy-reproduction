@@ -101,9 +101,9 @@ $l=35L/100$, $w=25W/500$, $d=55Dr/120$, and $s=15Sr/1500$, the budgets are
 \dot L&=35N/60-l,& \dot W&=25N/60-w,\\
 \dot D&=l+0.8w-d,& \dot S&=0.2w+10d/55-s.
 \end{align}
-Atmospheric uptake equals the negative of the summed land tendency.
-Initial stocks $(100,500,120,1500)$ Gt C and baseline exchanges use aggregated
-DCESS II values\ \cite{dcess}. These replace unrecovered SNEASY stock constants;
+The atmosphere gains carbon released by these four pools. Initial reservoir
+inventories are 100, 500, 120, and 1500 Gt C. These stocks and baseline exchanges
+use aggregated DCESS II values\ \cite{dcess}. They replace unrecovered SNEASY stock constants;
 they are not evidence of identical configurations. Initial fluxes balance.
 
 The surface ocean equilibrates instantaneously with the atmosphere. Yi's
@@ -256,15 +256,15 @@ published trillion-dollar global quantity.}
 \label{fig:one}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \input{reports/generated.tex}
 \caption{Independent benchmark distributions. Costs are billion 2010 USD
 for the 100-km test coast. Bin ordering matches Figure~\ref{fig:one}.}
 \end{table}
 
-The retained ensemble has total effective sample size \TotalESS. Its largest
-surface DIC is \MaxDIC~mol/m$^3$. The no-rise counterfactual costs
+The effective sample size is \TotalESS. Maximum retained surface DIC is
+\MaxDIC~mol/m$^3$. The no-rise counterfactual costs
 \BaselineCost~billion USD2010. Initial adaptation to existing surge hazards
 therefore explains much of the total cost even in cooler scenarios. The
 numerical CSVs report all category quantiles, bin weights, effective tail
@@ -272,6 +272,11 @@ counts, and 400-bootstrap Monte Carlo standard errors. Prefix ensembles of
 256, 512, 1024, 2048, and 4096 proposals provide a separate sampling diagnostic.
 The warmest bin's low effective tail count precludes a claim of precise tail
 recovery. Enlarging this ensemble would not resolve the absent global inputs.
+One of 4096 proposals is excluded by the carbonate-domain criterion; its
+pre-exclusion normalized weight is $8.84\times10^{-10}$. The warmest bin has
+28.1 effective samples and only 1.4 nominal effective samples in a 5\% tail.
+Its median and 95th-percentile bootstrap standard errors are 0.0096 and
+0.0199 billion dollars, respectively, without accounting for structural error.
 
 The conditional benchmark medians are nearly flat, unlike the published
 monotonic increase. Their warmest-to-coolest ratio is about 1.002. Mean
@@ -285,7 +290,7 @@ insensitive to warming. Without adaptation, corresponding medians increase
 from 53.13 to 58.32 billion dollars. Reducing the discount rate to 2\% increases
 the warmest-bin median by approximately 72\%.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \begin{tabular}{lrrrl}
 \toprule
@@ -307,6 +312,9 @@ Published median ratios relative to the coolest bin are 1, 1.25, 1.75, and
 their differences as descriptive shape diagnostics only. Similar ratios would
 not validate synthetic exposure, and different ratios cannot isolate model
 error from calibration or accounting differences.
+The benchmark assigns 1.54\% probability to the warmest category, compared
+with 7.78\% of the published sample. That discrepancy also reflects the
+different emissions measure and historical constraints.
 
 The fixed reference model produces approximately 1.239$^\circ$C warming in
 2010--2019 versus the assessed 1.06$^\circ$C, and 0.542 YJ ocean heat gain in

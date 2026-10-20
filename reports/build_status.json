@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-20",
+  "command": "make clean all audit",
+  "exit_status": 0,
+  "cpp_verification_checks_passed": 23,
+  "time_and_grid_refinement_passed": true,
+  "ensemble_integrity_checks_passed": true,
+  "pdf_compiled": true,
+  "source_paper_checksum_unchanged": true,
+  "numerical_outputs_identical_to_previous_checkpoint": true,
+  "wall_seconds": 73.91,
+  "maximum_resident_kib": 124016,
+  "parallel_model_workers": 1,
+  "github_publication": "blocked; no public URL verified"
+}
