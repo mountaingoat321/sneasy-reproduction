@@ -1,0 +1,7 @@
+{
+  "DIC0_mol_m3": 2.0046849433082903,
+  "dpCO2_dDIC": 1251.0903446369432,
+  "total_depth_m": 4014.953416393059,
+  "maximum_linear_IRF_error": 1.0269562977782698e-15,
+  "status": "Independent four-mode reduction, not verified original geometry"
+}

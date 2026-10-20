@@ -4,8 +4,13 @@ PYTHON ?= python3
 export MPLCONFIGDIR := $(CURDIR)/build/matplotlib
 export OPENBLAS_NUM_THREADS := 1
 export OMP_NUM_THREADS := 1
+export TEXMFVAR := $(CURDIR)/build/texmf-var
+export TEXMFCONFIG := $(CURDIR)/build/texmf-config
+export TEXMFCACHE := $(CURDIR)/build/texmf-cache
+export TEXMFHOME := $(CURDIR)/build/texmf-home
+export VARTEXFONTS := $(CURDIR)/build/texmf-fonts
 
-.PHONY: all test clean report checkpoint
+.PHONY: all test clean report audit
 all: test results/ensemble.csv results/reference.csv results/convergence.csv results/forcing_0.csv figures/figure1_nonreproduction.pdf report
 
 build/model: src/main.cpp src/models.cpp src/models.hpp
@@ -38,8 +43,12 @@ figures/figure1_nonreproduction.pdf: results/ensemble.csv results/reference.csv 
 	$(PYTHON) scripts/analyze.py
 
 report: figures/figure1_nonreproduction.pdf reports/report.tex
+	mkdir -p $(TEXMFVAR) $(TEXMFCONFIG) $(TEXMFCACHE) $(TEXMFHOME) $(VARTEXFONTS)
 	pdflatex -interaction=nonstopmode -halt-on-error -output-directory=reports reports/report.tex > build/latex.log
 	pdflatex -interaction=nonstopmode -halt-on-error -output-directory=reports reports/report.tex >> build/latex.log
+
+audit:
+	$(PYTHON) scripts/audit.py
 
 clean:
 	rm -f build/model build/verify results/*.csv results/*.json figures/*.pdf figures/*.png reports/report.pdf reports/generated.tex data/ocean_layers.csv

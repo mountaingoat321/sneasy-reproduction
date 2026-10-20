@@ -58,7 +58,7 @@ int main(int argc,char** argv) {
                  <<','<<th<<','<<oh<<','<<logw<<','<<t<<','<<a[250].sl<<','<<a[300].sl
                  <<','<<a[168].sl-a[51].sl<<','<<a[175].co2<<','<<dic<<','<<budget<<','<<bin
                  <<','<<c.total()<<','<<c.protection<<','<<c.relocation<<','<<c.inundation<<','<<c.flood<<','<<c.wetland
-                 <<','<<coastal_cost(a,.04,1.,.01,100,true).total()
+                 <<','<<coastal_cost(a,.04,1.,.01,true).total()
                  <<','<<coastal_cost(a,.02).total()<<','<<coastal_cost(a,.06).total()
                  <<','<<coastal_cost(a,.04,.8).total()<<','<<coastal_cost(a,.04,1.2).total()
                  <<','<<coastal_cost(baseline).total()<<'\n';

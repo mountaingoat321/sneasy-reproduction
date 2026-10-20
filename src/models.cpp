@@ -54,7 +54,7 @@ std::vector<Annual> simulate(const Parameters& p,const CarbonGeometry& g,const O
 void sea_level(std::vector<Annual>& a,const Parameters& p,double dt) {
     // Initial ice inventories are benchmark assumptions at 1850, not calibrated.
     double gic=0., gis=7.4, r=Antarctic::equilibrium_radius();
-    double initial_v=Antarctic::volume(r,0.), ice_change=0., other_previous=0.;
+    double ice_change=0., other_previous=0.;
     double air_base=mean(a,1961,1990,&Annual::temperature);
     double ocean_base=mean(a,1961,1990,&Annual::subsurface);
     double gic_base=mean(a,1850,1870,&Annual::temperature);
@@ -108,11 +108,10 @@ void sea_level(std::vector<Annual>& a,const Parameters& p,double dt) {
         double baseline=mean(a,1995,2014,field);
         for (auto& y:a) y.*field-=baseline;
     }
-    (void)initial_v; // change is integrated by mass flux, not differenced large volumes
 }
 
 static Cost strategy(const std::vector<Annual>& a,const Coast& c,int mode,int return_years,
-                     double discount,double sl_factor,double growth,int slices,int last_year=2150) {
+                     double discount,double sl_factor,double growth,int last_year=2150) {
     // mode 0: inaction with reactive relocation; 1: retreat; 2: protection.
     // Annual costs 2010--2150 inclusive, paid at year end; decisions 2010/2060/2110.
     Cost cost;
@@ -159,12 +158,11 @@ static Cost strategy(const std::vector<Annual>& a,const Coast& c,int mode,int re
         cost.wetland+=df*wetland_loss*area_per_m*2*c.wetland_fraction*2.; // USD 2/m2/y service
     }
     cost.protected_segments=(mode==2); cost.retreated_segments=(mode==1);
-    (void)slices; // analytic integration; retained for source compatibility with verification
     return cost;
 }
 
 Cost coastal_cost(const std::vector<Annual>& a,double discount,double sl_factor,double growth,
-                  int slices,bool no_adaptation) {
+                  bool no_adaptation) {
     const std::array<Coast,3> coast{{
         {40,.002,150,.0002,.35,.3},
         {35,.005,600,.002,.55,.1},
@@ -172,16 +170,16 @@ Cost coastal_cost(const std::vector<Annual>& a,double discount,double sl_factor,
     }};
     Cost sum;
     for (const auto& c:coast) {
-        Cost best=strategy(a,c,0,1,discount,sl_factor,growth,slices);
-        double best_initial=strategy(a,c,0,1,discount,sl_factor,growth,slices,2059).total();
+        Cost best=strategy(a,c,0,1,discount,sl_factor,growth);
+        double best_initial=strategy(a,c,0,1,discount,sl_factor,growth,2059).total();
         if (!no_adaptation) {
             for (int r:{1,10,100,1000,10000}) {
                 for (int mode:{1,2}) {
                     if (mode==2 && r==1) continue;
-                    double initial=strategy(a,c,mode,r,discount,sl_factor,growth,slices,2059).total();
+                    double initial=strategy(a,c,mode,r,discount,sl_factor,growth,2059).total();
                     if (initial<best_initial) {
                         best_initial=initial;
-                        best=strategy(a,c,mode,r,discount,sl_factor,growth,slices);
+                        best=strategy(a,c,mode,r,discount,sl_factor,growth);
                     }
                 }
             }

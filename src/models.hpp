@@ -165,15 +165,22 @@ struct Carbon {
     // Return compatible net external emissions including the boundary correction.
     double step(double dt,double temperature,double emission,double prescribed_ppm=0.) {
         double old=sum(m);
+        double prescribed_mass=0.;
+        if (prescribed_ppm>0.) {
+            double d=dic(m[0]);
+            for (int i=0;i<12;++i) d-=(pco2(d)-prescribed_ppm)/dpco2(d);
+            prescribed_mass=top_mass(d);
+        }
         auto k1=rate(m,temperature,emission), mid=m;
         for (int i=0;i<8;++i) mid[i]+=dt/2*k1[i];
+        // Apply the observed boundary at the midpoint as well as the endpoint.
+        // Otherwise historical land/ocean fluxes incur a first-order forcing lag.
+        if (prescribed_ppm>0.) mid[0]=(m[0]+prescribed_mass)/2;
         auto k2=rate(mid,temperature,emission);
         for (int i=0;i<8;++i) m[i]+=dt*k2[i];
         max_budget_error=std::max(max_budget_error,std::abs(sum(m)-old-dt*emission));
         if (prescribed_ppm>0.) {
-            double d=dic(m[0]);
-            for (int i=0;i<12;++i) d-=(pco2(d)-prescribed_ppm)/dpco2(d);
-            m[0]=top_mass(d);
+            m[0]=prescribed_mass;
         }
         double d=dic(m[0]); min_dic=std::min(min_dic,d); max_dic=std::max(max_dic,d);
         for (int i=4;i<8;++i) require(m[i]>0,"Negative terrestrial carbon inventory");
@@ -301,5 +308,5 @@ inline double damage_integral(double low,double high,double sea,double height,do
     return std::max(0.,result);
 }
 Cost coastal_cost(const std::vector<Annual>& a,double discount=.04,double sl_factor=1.,
-                  double growth=.01,int slices=100,bool no_adaptation=false);
+                  double growth=.01,bool no_adaptation=false);
 } // namespace model

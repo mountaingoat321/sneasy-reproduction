@@ -78,7 +78,7 @@ int main() {
         check("discount_sensitivity",coastal_cost(a,.02).total()>cost.total()
             &&cost.total()>coastal_cost(a,.06).total()?0:1,0.);
         // For the test reference, adaptation also reduces full-horizon losses.
-        check("reference_adaptation_benefit",cost.total()<=coastal_cost(a,.04,1,.01,100,true).total()?0:1,0.);
+        check("reference_adaptation_benefit",cost.total()<=coastal_cost(a,.04,1,.01,true).total()?0:1,0.);
         std::cout<<"All verification checks passed. DAIS radius="<<r<<" m\n";
     } catch (const std::exception& e) { std::cerr<<e.what()<<'\n'; return 1; }
 }
