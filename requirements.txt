@@ -1,0 +1,4 @@
+# Tested versions in the supplied environment; no network installation required.
+numpy==1.19.5
+scipy==1.5.4
+matplotlib==3.3.4
