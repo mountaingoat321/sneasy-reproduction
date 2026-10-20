@@ -1,0 +1,16 @@
+sources/
+build/
+logs/
+wong2025.pdf
+OVERNIGHT_TASK.md
+run_overnight.sh
+__pycache__/
+*.pyc
+.venv/
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
